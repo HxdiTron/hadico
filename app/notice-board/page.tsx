@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { supabase } from '../../lib/supabaseClient';
 
 interface Notice {
   id: number;
@@ -68,43 +69,31 @@ export default function NoticeBoard() {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const userData = localStorage.getItem('userData');
-      const staySignedIn = localStorage.getItem('staySignedIn') === 'true';
-      const sessionExpiry = localStorage.getItem('sessionExpiry');
-
-      if (!userData) {
-        router.replace('/login');
-        return;
-      }
-
-      // If stay signed in is checked, verify session expiry
-      if (staySignedIn && sessionExpiry) {
-        const expiryDate = new Date(sessionExpiry);
-        if (expiryDate > new Date()) {
-          setIsLoading(false);
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        if (error || !session) {
+          router.replace('/login');
           return;
         }
-        // If session expired, clear the data
-        localStorage.removeItem('userData');
-        localStorage.removeItem('staySignedIn');
-        localStorage.removeItem('sessionExpiry');
+        
+        setIsLoading(false);
+      } catch (error) {
         router.replace('/login');
-        return;
       }
-
-      // If we get here, user is logged in but stay signed in is not checked
-      // This is fine, just show the notice board
-      setIsLoading(false);
     };
 
     checkAuth();
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('userData');
-    localStorage.removeItem('staySignedIn');
-    localStorage.removeItem('sessionExpiry');
-    router.replace('/login');
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      localStorage.removeItem('staySignedIn');
+      router.replace('/login');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   if (isLoading) {

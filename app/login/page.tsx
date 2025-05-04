@@ -68,12 +68,11 @@ const Login: React.FC = () => {
         setShowDevMessage(true);
       } else {
         setSuccess(true);
-        // Store user data in localStorage if stay signed in is checked
+        // Store session data
         if (formData.staySignedIn) {
-          localStorage.setItem('userData', JSON.stringify(data.user));
           localStorage.setItem('staySignedIn', 'true');
         }
-        // Use router.push instead of window.location for smoother navigation
+        // Redirect to notice board
         router.push('/notice-board');
       }
     } catch (err) {

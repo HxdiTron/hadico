@@ -1,45 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Image from 'next/image';
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  });
-  const [success, setSuccess] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Show success message
-    setSuccess(true);
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    });
-    // Hide success message after 3 seconds
-    setTimeout(() => {
-      setSuccess(false);
-    }, 3000);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -84,84 +50,28 @@ export default function ContactPage() {
             />
           </div>
 
-          {/* Contact Form */}
-          <div className="contact-form-container">
-            {success && (
-              <div className="success-message">
-                Message sent successfully! We'll get back to you soon.
-              </div>
-            )}
-            <form onSubmit={handleSubmit} className="contact-form">
-              <div className="form-group">
-                <label htmlFor="name">Full Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          {/* Contact Information */}
+          <div className="contact-info-section">
+            <div className="contact-info-card">
+              <h2>Office Hours</h2>
+              <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+              <p>Saturday: 10:00 AM - 2:00 PM</p>
+              <p>Sunday: Closed</p>
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            <div className="contact-info-card">
+              <h2>Contact Details</h2>
+              <p>Email: <a href="mailto:management@hadi&co.au">management@hadi&co.au</a></p>
+              <p>Phone: (+61) 987 654 32</p>
+              <p>Address: 123 Building Street, Sydney, NSW 2000</p>
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="phone">Phone Number</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="subject">Subject</label>
-                <select
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select a subject</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="maintenance">Maintenance Request</option>
-                  <option value="complaint">Complaint</option>
-                  <option value="feedback">Feedback</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="message">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                ></textarea>
-              </div>
-
-              <button type="submit" className="submit-button">
-                Send Message
-              </button>
-            </form>
+            <div className="contact-info-card">
+              <h2>Emergency Contact</h2>
+              <p>24/7 Emergency Line: (+61) 987 654 31</p>
+              <p>Security: (+61) 987 654 30</p>
+              <p>Maintenance: (+61) 987 654 29</p>
+            </div>
           </div>
         </div>
       </main>
