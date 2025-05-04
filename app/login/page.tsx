@@ -68,9 +68,13 @@ const Login: React.FC = () => {
         setShowDevMessage(true);
       } else {
         setSuccess(true);
-        setTimeout(() => {
-          window.location.href = '/notice-board';
-        }, 1000);
+        // Store user data in localStorage if stay signed in is checked
+        if (formData.staySignedIn) {
+          localStorage.setItem('userData', JSON.stringify(data.user));
+          localStorage.setItem('staySignedIn', 'true');
+        }
+        // Use router.push instead of window.location for smoother navigation
+        router.push('/notice-board');
       }
     } catch (err) {
       setError('An error occurred during login');
