@@ -6,12 +6,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import WelcomeMessage from './components/WelcomeMessage';
-import Notification from './components/Notification';
 import Navbar from './components/Navbar';
 
 export default function HomePage() {
-  const router = useRouter();
-  const [showNotification, setShowNotification] = useState(false);
   const [showCookieConsent, setShowCookieConsent] = useState(false);
   
   useEffect(() => {
@@ -25,39 +22,11 @@ export default function HomePage() {
     setShowCookieConsent(false);
   };
 
-  const handleNoticeClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const userData = localStorage.getItem('userData');
-    const staySignedIn = localStorage.getItem('staySignedIn') === 'true';
-    const sessionExpiry = localStorage.getItem('sessionExpiry');
-    
-    // Check if user is logged in and session is valid
-    if (userData && staySignedIn && sessionExpiry) {
-      const expiryDate = new Date(sessionExpiry);
-      if (expiryDate > new Date()) {
-        router.push('/notice-board');
-        return;
-      }
-      // If session expired, clear the data
-      localStorage.removeItem('userData');
-      localStorage.removeItem('staySignedIn');
-      localStorage.removeItem('sessionExpiry');
-    }
-    
-    // If we get here, either user is not logged in or session expired
-    setShowNotification(true);
-  };
-
   const ManagementName = process.env.NEXT_PUBLIC_Management_Name || 'Hadi&Co.';
 
   return (
     <div className="container">
       <WelcomeMessage />
-      <Notification 
-        message="Please login first to access the Notice Board"
-        isVisible={showNotification}
-        onClose={() => setShowNotification(false)}
-      />
       <Navbar />
       {/* HERO */}
       <section className="hero relative h-[900px]">
@@ -124,7 +93,7 @@ export default function HomePage() {
       {showCookieConsent && (
         <div className="cookie-consent-banner">
           <span>
-            This website uses cookies to enhance the user experience. By continuing, you agree to our use of cookies.
+            This website uses cookies to enhance the user experience. By continuing to browse, you agree to our use of cookies.
           </span>
           <button className="cookie-consent-btn" onClick={handleAcceptCookies}>
             Accept

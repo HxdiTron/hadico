@@ -19,6 +19,7 @@ const Signup: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [verificationSent, setVerificationSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,9 +46,12 @@ const Signup: React.FC = () => {
         setError(error.message);
       } else {
         setSuccess(true);
+        if (data.user && !data.user.confirmed_at) {
+          setVerificationSent(true);
+        }
         setTimeout(() => {
           router.push('/login');
-        }, 2000);
+        }, 3000);
       }
     } catch (err) {
       setError('An error occurred during signup');
@@ -83,52 +87,62 @@ const Signup: React.FC = () => {
       </div>
       <div className="login-form">
         <div className="login-header">
-          <h1>Create Your Account</h1>
-          <p>Please fill in your details to sign up</p>
+          <h1>Sign Up</h1>
+          <p>Create your account</p>
         </div>
         {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">Signup successful! Redirecting to login...</div>}
+        {success && verificationSent && (
+          <div className="success-message">
+            Signup successful! A verification email has been sent. Please check your inbox and verify your email before logging in.<br />
+            Redirecting to login page...
+          </div>
+        )}
+        {success && !verificationSent && (
+          <div className="success-message">
+            Signup successful! Redirecting to login page...
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
-          <label>Full Name</label>
+          <label htmlFor="fullName">Full Name</label>
           <input
+            id="fullName"
             type="text"
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            placeholder="Enter your full name" 
+            placeholder="Enter your full name"
             required
           />
-
-          <label>Email</label>
+          <label htmlFor="email">Email</label>
           <input
+            id="email"
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="Enter your email" 
+            placeholder="Enter your email"
             required
           />
-
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <input
+            id="password"
             type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Enter your password" 
+            placeholder="Enter your password"
             required
           />
-
-          <label>Confirm Password</label>
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
+            id="confirmPassword"
             type="password"
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            placeholder="Confirm your password" 
+            placeholder="Confirm your password"
             required
           />
-
           <button
             type="submit"
             className="login-button"
@@ -140,7 +154,7 @@ const Signup: React.FC = () => {
         <p className="register-link">
           Already have an account?{' '}
           <Link href="/login" className="register-link-text">
-            Sign in here
+            Log in here
           </Link>
         </p>
       </div>

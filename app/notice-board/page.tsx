@@ -107,21 +107,23 @@ export default function NoticeBoard() {
 
   return (
     <div className="notice-board-container">
-      <nav className="navbar">
+      <nav className="navbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="nav-left">
           <Link href="/" className="brand">
             Hadi<span className="brand-orange">&</span><span className="brand-orange">Co.</span>
           </Link>
         </div>
-        <div className="navLinks">
-          <Link href="/">Home</Link>
-          <Link href="/notice-board">Notice Board</Link>
-          <Link href="/contact">Contact</Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginLeft: 'auto' }}>
+          <div className="navLinks" style={{ display: 'flex', gap: '2rem' }}>
+            <Link href="/notice-board">Notice Board</Link>
+            <Link href="/maintenance">Maintenance</Link>
+            <Link href="/contact">Contact Us</Link>
+          </div>
+          <button onClick={handleLogout} className="logout-btn">
+            <i className="fas fa-sign-out-alt"></i>
+            Logout
+          </button>
         </div>
-        <button onClick={handleLogout} className="logout-btn">
-          <i className="fas fa-sign-out-alt"></i>
-          Logout
-        </button>
       </nav>
 
       <div className="notice-board-header">

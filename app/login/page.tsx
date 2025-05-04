@@ -5,11 +5,12 @@ import "../globals.css";
 import Logo from "../components/Logo";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from '../../lib/supabaseClient';
 
 const Login: React.FC = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -43,14 +44,15 @@ const Login: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Check if user is already logged in with stay signed in
   useEffect(() => {
-    const userData = localStorage.getItem('userData');
-    const staySignedIn = localStorage.getItem('staySignedIn');
-    if (userData && staySignedIn === 'true') {
-      router.replace('/notice-board');
+    // If redirected from Google sign-in, show success message and redirect
+    if (searchParams.get('googleSuccess') === 'true') {
+      setSuccess(true);
+      setTimeout(() => {
+        router.push('/notice-board');
+      }, 2000);
     }
-  }, [router]);
+  }, [searchParams, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,8 +74,10 @@ const Login: React.FC = () => {
         if (formData.staySignedIn) {
           localStorage.setItem('staySignedIn', 'true');
         }
-        // Redirect to notice board
-        router.push('/notice-board');
+        // Show transition message, then redirect
+        setTimeout(() => {
+          router.push('/notice-board');
+        }, 2000);
       }
     } catch (err) {
       setError('An error occurred during login');
@@ -96,6 +100,7 @@ const Login: React.FC = () => {
     const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
     if (error) setError(error.message);
     setIsLoading(false);
+    // On success, Supabase will redirect back to the app. We handle the message in useEffect above.
   };
 
   return (
