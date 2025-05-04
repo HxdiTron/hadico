@@ -23,5 +23,8 @@
       "path": "/api/cron/daily-cleanup",
       "schedule": "0 0 * * *"
     }
+  ],
+  "routes": [
+    { "src": "/api/?", "dest": "/api/index.php" }
   ]
 } 
