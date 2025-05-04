@@ -2,11 +2,92 @@
   "sortedMiddleware": [],
   "middleware": {},
   "functions": {
+    "/api/location/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "prerender-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/api/location/route.js"
+      ],
+      "name": "app/api/location/route",
+      "page": "/api/location/route",
+      "matchers": [
+        {
+          "regexp": "^/api/location$",
+          "originalSource": "/api/location"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    },
+    "/api/cleanup-notices/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "prerender-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/api/cleanup-notices/route.js"
+      ],
+      "name": "app/api/cleanup-notices/route",
+      "page": "/api/cleanup-notices/route",
+      "matchers": [
+        {
+          "regexp": "^/api/cleanup\\-notices$",
+          "originalSource": "/api/cleanup-notices"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    },
+    "/api/login-attempt/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "prerender-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/api/login-attempt/route.js"
+      ],
+      "name": "app/api/login-attempt/route",
+      "page": "/api/login-attempt/route",
+      "matchers": [
+        {
+          "regexp": "^/api/login\\-attempt$",
+          "originalSource": "/api/login-attempt"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    },
+    "/api/login/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "prerender-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/api/login/route.js"
+      ],
+      "name": "app/api/login/route",
+      "page": "/api/login/route",
+      "matchers": [
+        {
+          "regexp": "^/api/login$",
+          "originalSource": "/api/login"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    },
     "/api/time/route": {
       "files": [
         "server/middleware-build-manifest.js",
         "server/middleware-react-loadable-manifest.js",
         "server/next-font-manifest.js",
+        "prerender-manifest.js",
         "server/edge-runtime-webpack.js",
         "server/app/api/time/route.js"
       ],
@@ -21,20 +102,41 @@
       "wasm": [],
       "assets": []
     },
-    "/api/location/route": {
+    "/api/submit-contact/route": {
       "files": [
         "server/middleware-build-manifest.js",
         "server/middleware-react-loadable-manifest.js",
         "server/next-font-manifest.js",
+        "prerender-manifest.js",
         "server/edge-runtime-webpack.js",
-        "server/app/api/location/route.js"
+        "server/app/api/submit-contact/route.js"
       ],
-      "name": "app/api/location/route",
-      "page": "/api/location/route",
+      "name": "app/api/submit-contact/route",
+      "page": "/api/submit-contact/route",
       "matchers": [
         {
-          "regexp": "^/api/location$",
-          "originalSource": "/api/location"
+          "regexp": "^/api/submit\\-contact$",
+          "originalSource": "/api/submit-contact"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    },
+    "/api/register/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "prerender-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/api/register/route.js"
+      ],
+      "name": "app/api/register/route",
+      "page": "/api/register/route",
+      "matchers": [
+        {
+          "regexp": "^/api/register$",
+          "originalSource": "/api/register"
         }
       ],
       "wasm": [],

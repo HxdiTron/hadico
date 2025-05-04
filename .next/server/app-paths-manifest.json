@@ -1,9 +1,18 @@
 {
-  "/api/time/route": "app/api/time/route.js",
-  "/api/location/route": "app/api/location/route.js",
-  "/notice-board/page": "app/notice-board/page.js",
+  "/_not-found": "app/_not-found.js",
+  "/contact/page": "app/contact/page.js",
   "/maintenance/page": "app/maintenance/page.js",
   "/login/page": "app/login/page.js",
+  "/notice-board/page": "app/notice-board/page.js",
   "/page": "app/page.js",
-  "/contact/page": "app/contact/page.js"
+  "/register/page": "app/register/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/test-functions/page": "app/test-functions/page.js",
+  "/api/location/route": "app/api/location/route.js",
+  "/api/cleanup-notices/route": "app/api/cleanup-notices/route.js",
+  "/api/login-attempt/route": "app/api/login-attempt/route.js",
+  "/api/login/route": "app/api/login/route.js",
+  "/api/time/route": "app/api/time/route.js",
+  "/api/submit-contact/route": "app/api/submit-contact/route.js",
+  "/api/register/route": "app/api/register/route.js"
 }

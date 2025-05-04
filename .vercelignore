@@ -1,8 +1,36 @@
-vendor/
+# Dependencies
 node_modules/
 .next/
+vendor/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Environment files
+.env*
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Version control
+.git/
+.gitignore
+
+# System files
+.DS_Store
 *.log
-*.env
-*.git
-*.gitignore
-*.DS_Store 
+*.swp
+*.swo
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-*
+
+# Cache
+.cache/
+.npm/
+.yarn/ 
