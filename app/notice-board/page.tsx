@@ -90,8 +90,11 @@ export default function NoticeBoard() {
     try {
       await supabase.auth.signOut();
       localStorage.removeItem('staySignedIn');
-      router.replace('/login');
+      setTimeout(() => {
+        router.replace('/login');
+      }, 200);
     } catch (error) {
+      alert('Logout failed. Please try again.');
       console.error('Error during logout:', error);
     }
   };
