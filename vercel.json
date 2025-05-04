@@ -12,12 +12,6 @@
     "NEXT_PUBLIC_SUPABASE_URL": "https://rzgynsfiamtogwhcajnt.supabase.co",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6Z3luc2ZpYW10b2d3aGNham50Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU4MzM4NTcsImV4cCI6MjA2MTQwOTg1N30.j-l7GigI5hZLbHwoP8e70JbOTF3XIdeZGFqjgZgVkaw"
   },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
   "crons": [
     {
       "path": "/api/cron/daily-cleanup",
@@ -27,4 +21,4 @@
   "routes": [
     { "src": "/api/?", "dest": "/api/index.php" }
   ]
-} 
+}
