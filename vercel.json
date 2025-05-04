@@ -21,8 +21,5 @@
   ],
   "env": {
     "PHP_INI_SCAN_DIR": "/vercel/path0/.vercel/builders/node_modules/@libphp/amazon-linux-2-v83/native/php/conf.d"
-  },
-  "ignore": [
-    ".next"
-  ]
+  }
 }
