@@ -1,0 +1,8 @@
+vendor/
+node_modules/
+.next/
+*.log
+*.env
+*.git
+*.gitignore
+*.DS_Store 
