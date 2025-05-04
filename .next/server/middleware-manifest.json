@@ -1,0 +1,45 @@
+{
+  "sortedMiddleware": [],
+  "middleware": {},
+  "functions": {
+    "/api/time/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/api/time/route.js"
+      ],
+      "name": "app/api/time/route",
+      "page": "/api/time/route",
+      "matchers": [
+        {
+          "regexp": "^/api/time$",
+          "originalSource": "/api/time"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    },
+    "/api/location/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/api/location/route.js"
+      ],
+      "name": "app/api/location/route",
+      "page": "/api/location/route",
+      "matchers": [
+        {
+          "regexp": "^/api/location$",
+          "originalSource": "/api/location"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    }
+  },
+  "version": 2
+}

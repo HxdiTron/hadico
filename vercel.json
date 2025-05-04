@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["syd1"],
+  "env": {
+    "NEXT_PUBLIC_Management_Name": "Hadi&Co.",
+    "NEXT_PUBLIC_ADMIN_USER": "admin",
+    "NEXT_PUBLIC_ADMIN_PASSWORD": "password123"
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/daily-cleanup",
+      "schedule": "0 0 * * *"
+    }
+  ]
+} 
