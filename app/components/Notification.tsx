@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 interface NotificationProps {
-  message: string;
+  message: React.ReactNode;
   isVisible: boolean;
   onClose: () => void;
 }
@@ -24,7 +24,7 @@ const Notification: React.FC<NotificationProps> = ({ message, isVisible, onClose
   return (
     <div className="notification">
       <div className="notification-content">
-        <p>{message}</p>
+        {message}
         <button className="notification-close" onClick={onClose}>×</button>
       </div>
     </div>

@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       <Notification 
-        message="Please login to access the Notice Board. Tip: Enable 'Stay signed in' to avoid frequent logins."
+        message="Please login to access the Notice Board."
         isVisible={showNotification}
         onClose={() => setShowNotification(false)}
       />
@@ -44,6 +44,7 @@ const Navbar: React.FC = () => {
         <div className="navLinks">
           <Link href="/">Home</Link>
           <a href="/notice-board" onClick={handleNoticeClick}>Notice Board</a>
+          <Link href="/maintenance">Maintenance</Link>
           <Link href="/contact">Contact Us</Link>
           <Link href="/login" className="login-btn">
             <i className="fas fa-user"></i>

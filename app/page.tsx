@@ -7,11 +7,24 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import WelcomeMessage from './components/WelcomeMessage';
 import Notification from './components/Notification';
+import Navbar from './components/Navbar';
 
 export default function HomePage() {
   const router = useRouter();
   const [showNotification, setShowNotification] = useState(false);
+  const [showCookieConsent, setShowCookieConsent] = useState(false);
   
+  useEffect(() => {
+    if (!localStorage.getItem('cookieConsent')) {
+      setShowCookieConsent(true);
+    }
+  }, []);
+
+  const handleAcceptCookies = () => {
+    localStorage.setItem('cookieConsent', 'true');
+    setShowCookieConsent(false);
+  };
+
   const handleNoticeClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const userData = localStorage.getItem('userData');
@@ -45,20 +58,7 @@ export default function HomePage() {
         isVisible={showNotification}
         onClose={() => setShowNotification(false)}
       />
-      <nav className="navbar">
-        <Link href="/" className="brand">
-          Hadi<span className="brand-orange">&Co.</span>
-        </Link>
-        <div className="navLinks">
-          <a href="/notice-board" onClick={handleNoticeClick}>Notice Board</a>
-          <Link href="/contact">Contact Us</Link>
-          <Link href="/login" className="login-btn">
-            <i className="fas fa-user"></i>
-            Owner's Login
-          </Link>
-        </div>
-      </nav>
-
+      <Navbar />
       {/* HERO */}
       <section className="hero relative h-[900px]">
         <Image
@@ -76,7 +76,6 @@ export default function HomePage() {
           <h1 className="hero-title">STRATA MANAGEMENT</h1>
         </div>
       </section>
-
       {/* Main Content */}
       <main className="main">
         {/* Welcome Section */}
@@ -86,20 +85,17 @@ export default function HomePage() {
               <h2>Welcome to {ManagementName}</h2>
               <p>Discover the luxury and comfort that defines our community</p>
             </div>
-            
             <div className="about-us-content">
               <div className="about-us-card">
                 <div className="about-us-icon">🏢</div>
                 <h3>Our Building</h3>
                 <p>{ManagementName} stands as a testament to modern architecture and luxury living. With 50 floors of premium residences, our building offers unparalleled views of Sydney's iconic skyline.</p>
               </div>
-              
               <div className="about-us-card">
                 <div className="about-us-icon">👥</div>
                 <h3>Our Community</h3>
                 <p>We foster a vibrant, diverse community where neighbors become friends. Our residents enjoy regular social events, wellness programs, and exclusive member benefits.</p>
               </div>
-              
               <div className="about-us-card">
                 <div className="about-us-icon">🌟</div>
                 <h3>Our Values</h3>
@@ -109,7 +105,6 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-
       {/* FOOTER */}
       <footer className="footer">
         <div className="contactInfo">
@@ -126,6 +121,16 @@ export default function HomePage() {
           © {new Date().getFullYear()} Hadi&Co. All rights reserved.
         </div>
       </footer>
+      {showCookieConsent && (
+        <div className="cookie-consent-banner">
+          <span>
+            This website uses cookies to enhance the user experience. By continuing, you agree to our use of cookies.
+          </span>
+          <button className="cookie-consent-btn" onClick={handleAcceptCookies}>
+            Accept
+          </button>
+        </div>
+      )}
     </div>
   );
 }

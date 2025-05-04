@@ -1,6 +1,10 @@
 {
   "/api/time/route": "app/api/time/route.js",
   "/api/location/route": "app/api/location/route.js",
+  "/api/login/route": "app/api/login/route.js",
   "/page": "app/page.js",
-  "/login/page": "app/login/page.js"
+  "/login/page": "app/login/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/maintenance/page": "app/maintenance/page.js",
+  "/signup/page": "app/signup/page.js"
 }

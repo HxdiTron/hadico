@@ -6,6 +6,7 @@ import Logo from "../components/Logo";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { supabase } from '../../lib/supabaseClient';
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -58,43 +59,22 @@ const Login: React.FC = () => {
     setSuccess(false);
 
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password
-        }),
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password
       });
-
-      const data = await response.json();
-
-      if (data.success) {
-        // Store user data and session info
-        localStorage.setItem('userData', JSON.stringify(data.user));
-        localStorage.setItem('staySignedIn', formData.staySignedIn.toString());
-        
-        // Set session expiry to 30 days if stay signed in is checked
-        if (formData.staySignedIn) {
-          const expiryDate = new Date();
-          expiryDate.setDate(expiryDate.getDate() + 30);
-          localStorage.setItem('sessionExpiry', expiryDate.toISOString());
-        }
-
+      if (error) {
+        setError(error.message || 'Login failed');
+        setShowDevMessage(true);
+      } else {
         setSuccess(true);
-        // Use window.location for navigation
         setTimeout(() => {
           window.location.href = '/notice-board';
         }, 1000);
-      } else {
-        setError(data.error || 'Login failed');
-        setShowDevMessage(true); // Show dev message again on login failure
       }
     } catch (err) {
       setError('An error occurred during login');
-      setShowDevMessage(true); // Show dev message again on error
+      setShowDevMessage(true);
     } finally {
       setIsLoading(false);
     }
@@ -105,6 +85,14 @@ const Login: React.FC = () => {
       ...formData,
       [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
     });
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError('');
+    setIsLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+    if (error) setError(error.message);
+    setIsLoading(false);
   };
 
   return (
@@ -148,13 +136,13 @@ const Login: React.FC = () => {
           </div>
         )}
         <form onSubmit={handleSubmit}>
-          <label>User ID</label>
+          <label>Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="Enter your user ID" 
+            placeholder="Enter your email" 
             required
           />
 
@@ -190,6 +178,23 @@ const Login: React.FC = () => {
             {isLoading ? 'Logging in...' : success ? 'Redirecting...' : 'Log In'}
           </button>
         </form>
+        <div style={{ margin: '1.5rem 0 0 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <button
+            type="button"
+            className="google-login-btn"
+            onClick={handleGoogleSignIn}
+            disabled={isLoading}
+          >
+            <img src="/google.webp" alt="Google" style={{ width: 20, height: 20, marginRight: 10 }} />
+            Sign in with Google
+          </button>
+        </div>
+        <p className="register-link">
+          Don't have an account?{' '}
+          <Link href="/signup" className="register-link-text">
+            Sign up here
+          </Link>
+        </p>
       </div>
     </div>
   );
