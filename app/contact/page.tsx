@@ -64,6 +64,7 @@ export default function ContactPage() {
               <p>Email: <a href="mailto:management@hadi&co.au">management@hadi&co.au</a></p>
               <p>Phone: (+61) 987 654 32</p>
               <p>Address: 123 Building Street, Sydney, NSW 2000</p>
+              <p><a href="/api" target="_blank" rel="noopener noreferrer" style={{ color: '#FF8F37', textDecoration: 'underline' }}>View our FAQ</a></p>
             </div>
 
             <div className="contact-info-card">
