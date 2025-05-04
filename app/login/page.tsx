@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import "../globals.css";
 import Logo from "../components/Logo";
 import Link from "next/link";
@@ -208,4 +208,12 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login; 
+function LoginPageWithSuspense() {
+  return (
+    <Suspense fallback={null}>
+      <Login />
+    </Suspense>
+  );
+}
+
+export default LoginPageWithSuspense; 
