@@ -1897,4 +1897,72 @@ body {
   }
 }
 
+/* POPUP STYLES */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.popup-content h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.popup-content p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.popup-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.popup-button.primary {
+  background-color: #FF8F37;
+  color: white;
+}
+
+.popup-button.primary:hover {
+  background-color: #e67e2a;
+}
+
+.popup-button.secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.popup-button.secondary:hover {
+  background-color: #e0e0e0;
+}
+
 

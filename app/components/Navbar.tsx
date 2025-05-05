@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
       await supabase.auth.signOut();
       localStorage.removeItem('staySignedIn');
       setTimeout(() => {
-        router.replace('/login');
+        router.replace('/');
       }, 200);
     } catch (error) {
       alert('Logout failed. Please try again.');

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '../../lib/supabaseClient';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 interface Notice {
   id: number;
@@ -68,30 +69,15 @@ export default function NoticeBoard() {
   );
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (error || !session) {
-          router.replace('/login');
-          return;
-        }
-        
-        setIsLoading(false);
-      } catch (error) {
-        router.replace('/login');
-      }
-    };
-
-    checkAuth();
-  }, [router]);
+    setIsLoading(false);
+  }, []);
 
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
       localStorage.removeItem('staySignedIn');
       setTimeout(() => {
-        router.replace('/login');
+        router.replace('/');
       }, 200);
     } catch (error) {
       alert('Logout failed. Please try again.');
@@ -109,70 +95,72 @@ export default function NoticeBoard() {
   }
 
   return (
-    <div className="notice-board-container">
-      <nav className="navbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="nav-left">
-          <Link href="/" className="brand">
-            Hadi<span className="brand-orange">&</span><span className="brand-orange">Co.</span>
-          </Link>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginLeft: 'auto' }}>
-          <div className="navLinks" style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/notice-board">Notice Board</Link>
-            <Link href="/maintenance">Maintenance</Link>
-            <Link href="/contact">Contact Us</Link>
+    <ProtectedRoute>
+      <div className="notice-board-container">
+        <nav className="navbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="nav-left">
+            <Link href="/" className="brand">
+              Hadi<span className="brand-orange">&</span><span className="brand-orange">Co.</span>
+            </Link>
           </div>
-          <button onClick={handleLogout} className="logout-btn">
-            <i className="fas fa-sign-out-alt"></i>
-            Logout
-          </button>
-        </div>
-      </nav>
-
-      <div className="notice-board-header">
-        <h1>Notice Board</h1>
-        <div className="priority-filters">
-          <button 
-            className={`filter-button ${selectedPriority === 'all' ? 'active' : ''}`}
-            onClick={() => setSelectedPriority('all')}
-          >
-            All Notices
-          </button>
-          <button 
-            className={`filter-button high ${selectedPriority === 'high' ? 'active' : ''}`}
-            onClick={() => setSelectedPriority('high')}
-          >
-            High Priority
-          </button>
-          <button 
-            className={`filter-button medium ${selectedPriority === 'medium' ? 'active' : ''}`}
-            onClick={() => setSelectedPriority('medium')}
-          >
-            Medium Priority
-          </button>
-          <button 
-            className={`filter-button low ${selectedPriority === 'low' ? 'active' : ''}`}
-            onClick={() => setSelectedPriority('low')}
-          >
-            Low Priority
-          </button>
-        </div>
-      </div>
-
-      <div className="notices-grid">
-        {filteredNotices.map((notice) => (
-          <div key={notice.id} className="notice-card">
-            <h2>{notice.title}</h2>
-            <p>{notice.content}</p>
-            <div className="notice-footer">
-              <span className="notice-date">{notice.date}</span>
-              <span className={`notice-priority ${notice.priority}`}>
-                {notice.priority}
-              </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginLeft: 'auto' }}>
+            <div className="navLinks" style={{ display: 'flex', gap: '2rem' }}>
+              <Link href="/notice-board">Notice Board</Link>
+              <Link href="/maintenance">Maintenance</Link>
+              <Link href="/contact">Contact Us</Link>
             </div>
+            <button onClick={handleLogout} className="logout-btn">
+              <i className="fas fa-sign-out-alt"></i>
+              Logout
+            </button>
           </div>
-        ))}
+        </nav>
+
+        <div className="notice-board-header">
+          <h1>Notice Board</h1>
+          <div className="priority-filters">
+            <button 
+              className={`filter-button ${selectedPriority === 'all' ? 'active' : ''}`}
+              onClick={() => setSelectedPriority('all')}
+            >
+              All Notices
+            </button>
+            <button 
+              className={`filter-button high ${selectedPriority === 'high' ? 'active' : ''}`}
+              onClick={() => setSelectedPriority('high')}
+            >
+              High Priority
+            </button>
+            <button 
+              className={`filter-button medium ${selectedPriority === 'medium' ? 'active' : ''}`}
+              onClick={() => setSelectedPriority('medium')}
+            >
+              Medium Priority
+            </button>
+            <button 
+              className={`filter-button low ${selectedPriority === 'low' ? 'active' : ''}`}
+              onClick={() => setSelectedPriority('low')}
+            >
+              Low Priority
+            </button>
+          </div>
+        </div>
+
+        <div className="notices-grid">
+          {filteredNotices.map((notice) => (
+            <div key={notice.id} className="notice-card">
+              <h2>{notice.title}</h2>
+              <p>{notice.content}</p>
+              <div className="notice-footer">
+                <span className="notice-date">{notice.date}</span>
+                <span className={`notice-priority ${notice.priority}`}>
+                  {notice.priority}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 } 

@@ -12,6 +12,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -20,13 +21,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         
         if (error || !session) {
           setIsAuthenticated(false);
-          router.push('/login');
+          setShowPopup(true);
         } else {
           setIsAuthenticated(true);
         }
       } catch (error) {
         setIsAuthenticated(false);
-        router.push('/login');
+        setShowPopup(true);
       } finally {
         setIsLoading(false);
       }
@@ -40,6 +41,31 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
       <div className="loading-container">
         <div className="loading-spinner"></div>
         <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (showPopup) {
+    return (
+      <div className="popup-overlay">
+        <div className="popup-content">
+          <h2>Sign In Required</h2>
+          <p>Please sign in to access this page.</p>
+          <div className="popup-buttons">
+            <button 
+              className="popup-button primary"
+              onClick={() => router.push('/login')}
+            >
+              Sign In
+            </button>
+            <button 
+              className="popup-button secondary"
+              onClick={() => router.push('/')}
+            >
+              Go to Home
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
