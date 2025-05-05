@@ -62,6 +62,36 @@ export default function NoticeBoard() {
       priority: 'high'
     }
   ]);
+  const [userName, setUserName] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session);
+      if (session) {
+        const { data } = await supabase
+          .from('profiles')
+          .select('name')
+          .eq('email', session.user.email)
+          .single();
+        if (data && data.name) {
+          setUserName(data.name ?? '');
+        } else {
+          setUserName(session.user.email ?? '');
+        }
+      } else {
+        setUserName(null);
+      }
+    };
+    checkSession();
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      checkSession();
+    });
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, []);
 
   // Filter notices based on selected priority
   const filteredNotices = notices.filter(notice => 
@@ -69,7 +99,7 @@ export default function NoticeBoard() {
   );
 
   useEffect(() => {
-    setIsLoading(false);
+        setIsLoading(false);
   }, []);
 
   const handleLogout = async () => {
@@ -96,71 +126,75 @@ export default function NoticeBoard() {
 
   return (
     <ProtectedRoute>
-      <div className="notice-board-container">
-        <nav className="navbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div className="nav-left">
-            <Link href="/" className="brand">
-              Hadi<span className="brand-orange">&</span><span className="brand-orange">Co.</span>
-            </Link>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginLeft: 'auto' }}>
-            <div className="navLinks" style={{ display: 'flex', gap: '2rem' }}>
-              <Link href="/notice-board">Notice Board</Link>
-              <Link href="/maintenance">Maintenance</Link>
-              <Link href="/contact">Contact Us</Link>
-            </div>
-            <button onClick={handleLogout} className="logout-btn">
-              <i className="fas fa-sign-out-alt"></i>
-              Logout
-            </button>
-          </div>
-        </nav>
-
-        <div className="notice-board-header">
-          <h1>Notice Board</h1>
-          <div className="priority-filters">
-            <button 
-              className={`filter-button ${selectedPriority === 'all' ? 'active' : ''}`}
-              onClick={() => setSelectedPriority('all')}
-            >
-              All Notices
-            </button>
-            <button 
-              className={`filter-button high ${selectedPriority === 'high' ? 'active' : ''}`}
-              onClick={() => setSelectedPriority('high')}
-            >
-              High Priority
-            </button>
-            <button 
-              className={`filter-button medium ${selectedPriority === 'medium' ? 'active' : ''}`}
-              onClick={() => setSelectedPriority('medium')}
-            >
-              Medium Priority
-            </button>
-            <button 
-              className={`filter-button low ${selectedPriority === 'low' ? 'active' : ''}`}
-              onClick={() => setSelectedPriority('low')}
-            >
-              Low Priority
-            </button>
+    <div className="notice-board-container">
+      <nav className="navbar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Link href="/" className="brand">
+          Hadi<span className="brand-orange">&</span><span className="brand-orange">Co.</span>
+        </Link>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <div className="navLinks" style={{ display: 'flex', gap: '2rem' }}>
+            <Link href="/notice-board">Notice Board</Link>
+            <Link href="/maintenance">Maintenance</Link>
+            <Link href="/contact">Contact Us</Link>
+            <Link href="/current-members">Current Members</Link>
           </div>
         </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          {isAuthenticated && userName && (
+            <span style={{ fontWeight: 500, fontSize: '1.1rem', color: '#fff', marginLeft: '1.5rem' }}>Welcome, {userName}</span>
+          )}
+          <button onClick={handleLogout} className="logout-btn">
+            <i className="fas fa-sign-out-alt"></i>
+            Logout
+          </button>
+        </div>
+      </nav>
 
-        <div className="notices-grid">
-          {filteredNotices.map((notice) => (
-            <div key={notice.id} className="notice-card">
-              <h2>{notice.title}</h2>
-              <p>{notice.content}</p>
-              <div className="notice-footer">
-                <span className="notice-date">{notice.date}</span>
-                <span className={`notice-priority ${notice.priority}`}>
-                  {notice.priority}
-                </span>
-              </div>
-            </div>
-          ))}
+      <div className="notice-board-header">
+        <h1>Notice Board</h1>
+        <div className="priority-filters">
+          <button 
+            className={`filter-button ${selectedPriority === 'all' ? 'active' : ''}`}
+            onClick={() => setSelectedPriority('all')}
+          >
+            All Notices
+          </button>
+          <button 
+            className={`filter-button high ${selectedPriority === 'high' ? 'active' : ''}`}
+            onClick={() => setSelectedPriority('high')}
+          >
+            High Priority
+          </button>
+          <button 
+            className={`filter-button medium ${selectedPriority === 'medium' ? 'active' : ''}`}
+            onClick={() => setSelectedPriority('medium')}
+          >
+            Medium Priority
+          </button>
+          <button 
+            className={`filter-button low ${selectedPriority === 'low' ? 'active' : ''}`}
+            onClick={() => setSelectedPriority('low')}
+          >
+            Low Priority
+          </button>
         </div>
       </div>
+
+      <div className="notices-grid">
+        {filteredNotices.map((notice) => (
+          <div key={notice.id} className="notice-card">
+            <h2>{notice.title}</h2>
+            <p>{notice.content}</p>
+            <div className="notice-footer">
+              <span className="notice-date">{notice.date}</span>
+              <span className={`notice-priority ${notice.priority}`}>
+                {notice.priority}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
     </ProtectedRoute>
   );
 } 

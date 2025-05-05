@@ -1965,4 +1965,82 @@ body {
   background-color: #e0e0e0;
 }
 
+/* --- Members Table & Card Styles (Orange Theme) --- */
+.members-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgba(60,60,60,0.08);
+  padding: 2.5rem 2rem;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.members-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 1.08rem;
+}
+
+.members-table th, .members-table td {
+  padding: 1.1rem 1.2rem;
+  text-align: left;
+}
+
+.members-table th {
+  background: #fff5ec; /* very light orange */
+  color: #FF8F37;
+  font-weight: 700;
+  font-size: 1.08rem;
+  border-bottom: 2px solid #ffe0c2;
+}
+
+.members-table tr {
+  transition: background 0.15s;
+}
+
+.members-table tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.members-table tr:hover {
+  background: #fff1e3;
+}
+
+.members-table td {
+  color: #222;
+  font-weight: 500;
+}
+
+.members-card select {
+  border: 1px solid #FF8F37;
+  border-radius: 6px;
+  padding: 0.4rem 1.2rem 0.4rem 0.7rem;
+  font-size: 1rem;
+background: #fff1e3;
+  color: #FF8F37;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(162, 27, 27, 0.04);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.members-card select:focus {
+  outline: none;
+  border: 2px solid #FF8F37;
+  box-shadow: 0 0 0 2px #ffe0c2;
+}
+
+@media (max-width: 700px) {
+  .members-card {
+    padding: 1.2rem 0.5rem;
+  }
+  .members-table th, .members-table td {
+    padding: 0.7rem 0.5rem;
+    font-size: 0.98rem;
+  }
+}
+
 
