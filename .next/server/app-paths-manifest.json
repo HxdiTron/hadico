@@ -1,9 +1,0 @@
-{
-  "/api/time/route": "app/api/time/route.js",
-  "/api/location/route": "app/api/location/route.js",
-  "/page": "app/page.js",
-  "/notice-board/page": "app/notice-board/page.js",
-  "/login/page": "app/login/page.js",
-  "/maintenance/page": "app/maintenance/page.js",
-  "/contact/page": "app/contact/page.js"
-}
