@@ -97,7 +97,12 @@ const Login: React.FC = () => {
   const handleGoogleSignIn = async () => {
     setError('');
     setIsLoading(true);
-    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+    const { error } = await supabase.auth.signInWithOAuth({ 
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/login?googleSuccess=true`
+      }
+    });
     if (error) setError(error.message);
     setIsLoading(false);
     // On success, Supabase will redirect back to the app. We handle the message in useEffect above.
