@@ -33,4 +33,7 @@ out/
 # Cache
 .cache/
 .npm/
-.yarn/ 
+.yarn/
+
+# Ignore PHP config
+composer.json 
