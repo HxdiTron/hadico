@@ -35,6 +35,4 @@ out/
 .npm/
 .yarn/
 
-# Ignore PHP config
-composer.json
-api/index.php 
+# Ignore PHP config 
