@@ -44,6 +44,24 @@ const Login: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Ensure user profile exists in 'profiles' after login (including Google)
+  useEffect(() => {
+    const syncProfile = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session && session.user) {
+        const user = session.user;
+        // Upsert user's profile (name/email)
+        await supabase.from('profiles').upsert([
+          {
+            email: user.email,
+            name: user.user_metadata?.full_name || user.user_metadata?.name || user.email,
+          }
+        ]);
+      }
+    };
+    syncProfile();
+  }, []);
+
   useEffect(() => {
     // If redirected from Google sign-in, show success message and redirect
     if (searchParams.get('googleSuccess') === 'true') {

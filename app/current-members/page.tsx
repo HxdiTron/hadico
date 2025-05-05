@@ -52,7 +52,8 @@ export default function CurrentMembers() {
                     id="sort"
                     value={sortOrder}
                     onChange={e => setSortOrder(e.target.value as 'desc' | 'asc')}
-                    style={{border: '1px solid #ccc', borderRadius: 6, padding: '0.4rem 1.2rem 0.4rem 0.4rem', fontSize: '1rem', background: '#FFF1E3 ', color: '#222', fontWeight: 600, boxShadow: '0 1px 2px rgba(60, 60, 60, 0.04)'}}>
+                    style={{border: '1px solid #ccc', borderRadius: 6, padding: '0.4rem 1.2rem 0.4rem 0.4rem', fontSize: '1rem', background: '#FFF1E3 ', color: '#222', fontWeight: 6
+                    00, boxShadow: '0 1px 2px rgba(60, 60, 60, 0.04)'}}>
                     <option value="desc">Newest First</option>
                     <option value="asc">Oldest First</option>
                   </select>
