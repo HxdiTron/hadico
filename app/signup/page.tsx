@@ -93,8 +93,8 @@ const Signup: React.FC = () => {
         {error && <div className="error-message">{error}</div>}
         {success && verificationSent && (
           <div className="success-message">
-            Signup successful! A verification email has been sent. Please check your inbox and verify your email before logging in.<br />
-            Redirecting to login page...
+            Signup successful! <br/>A verification email has been sent, verify your email before logging in.<br />
+
           </div>
         )}
         {success && !verificationSent && (

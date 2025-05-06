@@ -10,7 +10,7 @@ const Login: React.FC = () => {
       <div className="login-form">
         <div className="login-header">
           <h1>Welcome Back Resident!</h1>
-          <p>Please enter your login details</p>
+          <p>Please enter your </p>
         </div>
         <form>
           <label>Email ID</label>
@@ -29,7 +29,7 @@ const Login: React.FC = () => {
 
           <button type="submit" className="login-button">Log In</button>
         </form>
-        <p className="register-link">Do not have your login details?</p>
+        <p className="register-link">Do not have your ?</p>
       </div>
     </div>
   );

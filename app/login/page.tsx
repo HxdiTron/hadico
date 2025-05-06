@@ -130,21 +130,7 @@ const Login: React.FC = () => {
           </div>
         {error && <div className="error-message">{error}</div>}
         {success && <div className="success-message">Login successful! Redirecting to Notice Board...</div>}
-        {showDevMessage && (
-          <div className="dev-message">
-            <p>
-              Login Details
-              <button 
-                className="close-button" 
-                onClick={() => setShowDevMessage(false)}
-              >
-                ×
-              </button>
-            </p>
-            <p>User ID: {adminUser}</p>
-            <p>Password: {adminPassword}</p>
-          </div>
-        )}
+        
         <form onSubmit={handleSubmit}>
           <label>Email</label>
           <input
