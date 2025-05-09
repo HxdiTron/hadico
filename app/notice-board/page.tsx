@@ -135,8 +135,8 @@ export default function NoticeBoard() {
           <div className="navLinks" style={{ display: 'flex', gap: '2rem' }}>
             <Link href="/notice-board">Notice Board</Link>
             <Link href="/maintenance">Maintenance</Link>
-            <Link href="/contact">Contact Us</Link>
             <Link href="/current-members">Current Members</Link>
+            <Link href="/contact">Contact Us</Link>
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>

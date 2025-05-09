@@ -36,6 +36,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cmagm6iv907xkr2k4umiw0x7h"></script>
       </head>
       <body className={`${poppins.variable} ${playfair.variable} font-sans bg-white text-gray-800`}>
         {/*
