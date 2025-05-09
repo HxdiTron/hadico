@@ -99,10 +99,17 @@ const Login: React.FC = () => {
   const handleGoogleSignIn = async () => {
     setError('');
     setIsLoading(true);
-    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-    if (error) setError(error.message);
-    setIsLoading(false);
-    // On success, Supabase will redirect back to the app. We handle the message in useEffect above.
+    const { data, error } = await supabase.auth.signInWithOAuth({ 
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/notice-board`
+      }
+    });
+    if (error) {
+      setError(error.message);
+      setIsLoading(false);
+    }
+    // On success, Supabase will redirect to the notice board
   };
 
   return (
